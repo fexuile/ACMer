@@ -9,6 +9,7 @@
 #include<map>
 #define re register
 #define ll long long
+#define int ll
 using namespace std;
 typedef pair<int,int> pii;
 inline int gi(){
@@ -17,24 +18,28 @@ inline int gi(){
     while(ch>='0' && ch<='9'){sum=(sum<<3)+(sum<<1)+ch-'0';ch=getchar();}
     return sum*f;
 }
-bool check(int x){
-    if(x%4==0&&x%100!=0)return true;
-    return x%400==0;
+int get(int A,int B,int k){
+    if(k*A>=B)return k*A-B;
+    return (ll)ceil(B*1./k)*(k+1)-A-B;
 }
-int month[2][13]={{0,31,28,31,30,31,30,31,31,30,31,30,31},{0,31,29,31,30,31,30,31,31,30,31,30,31}};
-int main(){
+signed main(){
 #ifndef ONLINE_JUDGE
     freopen("in.in","r",stdin);
     freopen("out.out","w",stdout);
 #endif
-    int n=gi(),m=gi(),s=0;
-    for(int i=1900;i<n;i++)s+=365+check(i);
-    for(int i=1;i<m;i++)s+=month[check(n)][i];
-    s%=7;s++;puts(" Sun Mon Tue Wed Thu Fri Sat");
-    if(s!=7)for(int i=1;i<=s;i++)printf("    ");
-    for(int i=1;i<=month[check(n)][m];i++){
-        printf("%4.d",i);if(s==6)puts("");
-        s=s%7+1;
+    int T=gi();
+    while(T--){
+        int A=gi(),B=gi();
+        if(B<=A)printf("%lld\n",A-B);
+        else if(B%A==0)puts("0");
+        else {
+            int k=B/A,ans=B-A;
+            for(int i=max(1ll,k-2000000);i<=k+2000000;i++){
+                ans=min(ans,get(A,B,i));
+                if(i*A>=B)break;
+            }
+            printf("%lld\n",ans);
+        }
     }
     return 0;
 }

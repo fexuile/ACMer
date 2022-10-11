@@ -4,6 +4,8 @@
         "set": "cpp",
         "*.tcc": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "algorithm": "cpp",
+        "type_traits": "cpp"
     }
 }
